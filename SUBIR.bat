@@ -1,4 +1,4 @@
-﻿@echo off
+@echo off
 cd /d "%~dp0"
 
 echo ===================================
@@ -15,6 +15,7 @@ if "%mensaje%"=="" (
 )
 
 git commit -m "%mensaje%"
+git pull origin main --no-edit
 git push
 
 echo.
