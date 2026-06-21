@@ -1,0 +1,24 @@
+﻿# Backend (Spring Boot)
+target/
+*.class
+*.jar
+.mvn/
+!.mvn/wrapper/maven-wrapper.jar
+
+# Frontend (Angular)
+node_modules/
+dist/
+.angular/
+
+# IDE
+.vscode/
+.idea/
+*.iml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Variables sensibles
+*.env
+application-local.properties

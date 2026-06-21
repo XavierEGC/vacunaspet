@@ -1,0 +1,78 @@
+.login-wrapper {
+  display: flex;
+  min-height: 100vh;
+}
+
+.login-left {
+  flex: 1;
+  background-image: url('/bg-login.jpg');
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+}
+
+.login-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(31, 122, 110, 0.85), rgba(42, 157, 143, 0.75));
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 48px;
+}
+
+.login-brand {
+  h1 { font-size: 2.5rem; }
+  p { font-size: 1.1rem; max-width: 400px; }
+}
+
+.login-stats {
+  display: flex;
+  gap: 32px;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  .stat-number {
+    color: white;
+    font-size: 1.8rem;
+    font-weight: 800;
+  }
+  .stat-label {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.85rem;
+  }
+}
+
+.login-right {
+  width: 480px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: white;
+  padding: 48px;
+}
+
+.login-form-container {
+  width: 100%;
+  max-width: 380px;
+}
+
+.input-group-text {
+  border-right: none;
+}
+
+.form-control {
+  border-left: none;
+  &:focus {
+    border-color: var(--border);
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .login-left { display: none; }
+  .login-right { width: 100%; }
+}

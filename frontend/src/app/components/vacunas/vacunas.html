@@ -1,0 +1,109 @@
+<div class="p-4">
+  <!-- Encabezado -->
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-0" style="color: var(--text-dark)">
+        <i class="bi bi-capsule me-2" style="color: var(--teal)"></i>Vacunas
+      </h2>
+      <small style="color: var(--text-soft)">Catálogo de vacunas registradas</small>
+    </div>
+    <button class="btn-teal" data-bs-toggle="collapse" data-bs-target="#formVacuna">
+      <i class="bi bi-plus-circle me-1"></i> Nueva vacuna
+    </button>
+  </div>
+
+  <!-- Alerta de éxito -->
+  <div *ngIf="mensaje" class="alert alert-success alert-dismissible fade show" role="alert">
+    {{ mensaje }}
+  </div>
+
+  <!-- Formulario colapsable -->
+  <div class="collapse mb-4" id="formVacuna">
+    <div class="card p-4">
+      <h5 class="fw-bold mb-3" style="color: var(--teal)">Registrar nueva vacuna</h5>
+
+      <!-- Toggle modo manual -->
+      <div class="form-check form-switch mb-3">
+        <input class="form-check-input" type="checkbox" [(ngModel)]="modoManual" id="modoManual">
+        <label class="form-check-label fw-semibold" for="modoManual" style="color: var(--text-soft)">
+          Ingresar manualmente
+        </label>
+      </div>
+
+      <div class="row g-3">
+        <!-- Nombre: dropdown o texto según modo -->
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Nombre</label>
+          <select *ngIf="!modoManual" class="form-select" [(ngModel)]="nueva.nombre" (ngModelChange)="onNombreChange()">
+            <option value="" disabled>Selecciona una vacuna</option>
+            <option *ngFor="let n of nombresDisponibles" [value]="n">{{ n }}</option>
+          </select>
+          <input *ngIf="modoManual" type="text" class="form-control" [(ngModel)]="nueva.nombre" placeholder="Ej: Rabia">
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Fabricante</label>
+          <input type="text" class="form-control" [(ngModel)]="nueva.fabricante"
+            placeholder="Ej: Zoetis" [readonly]="!modoManual">
+        </div>
+        <div class="col-md-8">
+          <label class="form-label fw-semibold">Descripción</label>
+          <input type="text" class="form-control" [(ngModel)]="nueva.descripcion"
+            placeholder="Descripción breve" [readonly]="!modoManual">
+        </div>
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Dosis</label>
+          <input type="number" class="form-control" [(ngModel)]="nueva.dosis"
+            min="1" [readonly]="!modoManual">
+        </div>
+        <div class="col-12">
+          <button class="btn-teal" (click)="guardar()">
+            <i class="bi bi-save me-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tabla Bootstrap -->
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead style="background: var(--teal-light)">
+          <tr>
+            <th class="px-4 py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">#</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Nombre</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Fabricante</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Dosis</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Descripción</th>
+            <th class="py-3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let v of vacunas; let i = index">
+            <td class="px-4 py-3 fw-bold" style="color: var(--teal)">{{ i + 1 }}</td>
+            <td class="py-3 fw-semibold">{{ v.nombre }}</td>
+            <td class="py-3">
+              <span class="badge" style="background: var(--teal-light); color: var(--teal-dark)">{{ v.fabricante }}</span>
+            </td>
+            <td class="py-3">
+              <span class="badge bg-secondary">{{ v.dosis }} dosis</span>
+            </td>
+            <td class="py-3" style="color: var(--text-soft)">{{ v.descripcion }}</td>
+            <td class="py-3">
+              <button class="btn btn-sm btn-outline-danger" (click)="eliminar(v.id!)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="vacunas.length === 0">
+            <td colspan="6" class="text-center py-5" style="color: var(--text-soft)">
+              <i class="bi bi-capsule" style="font-size: 2rem"></i>
+              <p class="mt-2">No hay vacunas registradas</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

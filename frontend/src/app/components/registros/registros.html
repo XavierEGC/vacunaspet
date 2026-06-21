@@ -1,0 +1,111 @@
+<div class="p-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <div>
+      <h2 class="fw-bold mb-0" style="color: var(--text-dark)">
+        <i class="bi bi-clipboard-check me-2" style="color: var(--teal)"></i>Registros de Vacunación
+      </h2>
+      <small style="color: var(--text-soft)">Historial de vacunas aplicadas</small>
+    </div>
+    <button class="btn-teal" data-bs-toggle="collapse" data-bs-target="#formRegistro">
+      <i class="bi bi-plus-circle me-1"></i> Nuevo registro
+    </button>
+  </div>
+
+  <div *ngIf="mensaje" class="alert alert-success">{{ mensaje }}</div>
+
+  <div class="collapse mb-4" id="formRegistro">
+    <div class="card p-4">
+      <h5 class="fw-bold mb-3" style="color: var(--teal)">Registrar aplicación de vacuna</h5>
+      <div class="row g-3">
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Mascota</label>
+          <select class="form-select" [(ngModel)]="nuevo.mascota" (ngModelChange)="onMascotaChange()">
+            <option [ngValue]="null" disabled>Selecciona una mascota</option>
+            <option *ngFor="let m of mascotas" [ngValue]="m.id">
+              {{ m.nombre }} ({{ m.especie }})
+            </option>
+          </select>
+        </div>
+
+        <div class="col-md-6">
+          <label class="form-label fw-semibold">Vacuna
+            <small class="ms-1" style="color: var(--text-soft); font-weight: normal">
+              {{ nuevo.mascota ? '— filtrada por especie' : '' }}
+            </small>
+          </label>
+          <select class="form-select" [(ngModel)]="nuevo.vacuna" (ngModelChange)="onVacunaChange()">
+            <option [ngValue]="null" disabled>Selecciona una vacuna</option>
+            <option *ngFor="let v of vacunasFiltradas" [ngValue]="v.id">{{ v.nombre }}</option>
+          </select>
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Fecha aplicación</label>
+          <input type="date" class="form-control" [(ngModel)]="nuevo.fechaAplicacion"
+            (ngModelChange)="onFechaAplicacionChange()">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Próxima dosis
+            <small class="ms-1" style="color: var(--text-soft); font-weight: normal">auto</small>
+          </label>
+          <input type="date" class="form-control" [(ngModel)]="nuevo.fechaProxima"
+            style="background: var(--teal-light)">
+        </div>
+
+        <div class="col-md-4">
+          <label class="form-label fw-semibold">Observaciones</label>
+          <input type="text" class="form-control" [(ngModel)]="nuevo.observaciones" placeholder="Opcional">
+        </div>
+
+        <div class="col-12">
+          <button class="btn-teal" (click)="guardar()">
+            <i class="bi bi-save me-1"></i> Guardar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-body p-0">
+      <table class="table table-hover mb-0">
+        <thead style="background: var(--teal-light)">
+          <tr>
+            <th class="px-4 py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">#</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Mascota</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Vacuna</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Aplicación</th>
+            <th class="py-3" style="color: var(--text-soft); font-size: 0.78rem; text-transform: uppercase">Próxima</th>
+            <th class="py-3"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let r of registros; let i = index">
+            <td class="px-4 py-3 fw-bold" style="color: var(--teal)">{{ i + 1 }}</td>
+            <td class="py-3 fw-semibold">{{ r.mascota?.nombre }}</td>
+            <td class="py-3">
+              <span class="badge" style="background: var(--teal-light); color: var(--teal-dark)">
+                {{ r.vacuna?.nombre }}
+              </span>
+            </td>
+            <td class="py-3">{{ r.fechaAplicacion }}</td>
+            <td class="py-3" style="color: var(--text-soft)">{{ r.fechaProxima || '-' }}</td>
+            <td class="py-3">
+              <button class="btn btn-sm btn-outline-danger" (click)="eliminar(r.id)">
+                <i class="bi bi-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="!cargando && registros.length === 0">
+            <td colspan="6" class="text-center py-5" style="color: var(--text-soft)">
+              <i class="bi bi-clipboard-x" style="font-size: 2rem"></i>
+              <p class="mt-2">No hay registros de vacunación</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

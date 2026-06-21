@@ -1,0 +1,54 @@
+@import 'bootstrap/dist/css/bootstrap.min.css';
+@import 'bootstrap-icons/font/bootstrap-icons.css';
+
+:root {
+  --teal: #2a9d8f;
+  --teal-dark: #1f7a6e;
+  --teal-light: #e8f5f3;
+  --coral: #e76f51;
+  --text-dark: #264653;
+  --text-soft: #8fa3ab;
+  --border: #dce8e5;
+}
+
+body {
+  background: #f7faf9;
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+}
+
+.sidebar {
+  min-height: 100vh;
+  width: 240px;
+  background: white;
+  border-right: 1px solid var(--border);
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+.main-content {
+  margin-left: 240px;
+  padding: 28px 32px;
+  min-height: 100vh;
+}
+
+.btn-teal {
+  background: var(--teal);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  padding: 8px 18px;
+}
+
+.btn-teal:hover {
+  background: var(--teal-dark);
+  color: white;
+}
+
+.card {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.05);
+}

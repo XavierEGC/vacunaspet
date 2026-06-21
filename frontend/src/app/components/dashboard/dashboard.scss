@@ -1,0 +1,22 @@
+.dashboard-hero {
+  background: linear-gradient(135deg, var(--teal-dark), var(--teal));
+  border-radius: 0 0 20px 20px;
+}
+
+.stat-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+}
+
+.access-card {
+  transition: all 0.2s;
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(42,157,143,0.15);
+  }
+}
